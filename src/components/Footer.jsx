@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Mail, Code2 } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './Icons'
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
 
 const navLinks = [
   { label: 'Home',       href: '#home' },
@@ -14,9 +14,10 @@ const navLinks = [
 ]
 
 const socials = [
-  { icon: GithubIcon,   href: 'https://github.com/',         label: 'GitHub' },
-  { icon: LinkedinIcon, href: 'https://linkedin.com/',     label: 'LinkedIn' },
-  { icon: Mail,         href: 'mailto:ajeetgupta@example.com',          label: 'Email' },
+  { icon: GithubIcon,    href: 'https://github.com/gajit9147-dev',                                                     label: 'GitHub' },
+  { icon: LinkedinIcon,  href: 'https://www.linkedin.com/in/ajeet-gupta-970478273/',                                   label: 'LinkedIn' },
+  { icon: InstagramIcon, href: 'https://www.instagram.com/_ajeetgupta_07?stkn=eTUxOXExeHh6dXMz&utm_source=qr',       label: 'Instagram' },
+  { icon: Mail,          href: 'mailto:ajeetgupta80045@gmail.com',                                                    label: 'Email' },
 ]
 
 export default function Footer() {

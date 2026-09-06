@@ -11,7 +11,7 @@ export const featuredProjects = [
       'InnerVoice is a full-stack application built to provide a private, secure space for personal notes and voice entries. It implements end-to-end JWT authentication, protected routes, encrypted note access, and a RESTful API architecture — all containerised with Docker and deployed to AWS.',
     image: null, // Replace with actual screenshot path when available
     tags: ['React', 'Node.js', 'Express.js', 'MongoDB', 'JWT', 'Docker', 'AWS'],
-    github: 'https://github.com/ajeetgupta', // Replace with actual repo URL
+    github: 'https://github.com/gajit9147-dev',
     demo: null, // Replace with actual demo URL when deployed
     category: ['Full Stack', 'Backend'],
     features: [
@@ -56,7 +56,7 @@ export const featuredProjects = [
       'A clean, modular RESTful API server demonstrating backend engineering best practices — layered architecture, JWT auth, role-based permissions, request validation, and error handling middleware.',
     image: null,
     tags: ['Node.js', 'Express.js', 'MongoDB', 'JWT', 'REST API'],
-    github: 'https://github.com/ajeetgupta', // Replace with actual repo URL
+    github: 'https://github.com/gajit9147-dev',
     demo: null,
     category: ['Backend'],
     features: [
@@ -93,7 +93,7 @@ export const featuredProjects = [
       'Demonstrates a real-world deployment pipeline: containerising a Node.js app with Docker, pushing the image, provisioning an AWS EC2 instance, configuring Nginx as a reverse proxy, and securing the endpoint. Built to understand the full journey from code to production.',
     image: null,
     tags: ['Docker', 'AWS', 'Nginx', 'Linux', 'Node.js', 'Git'],
-    github: 'https://github.com/ajeetgupta', // Replace with actual repo URL
+    github: 'https://github.com/gajit9147-dev',
     demo: null,
     category: ['Cloud', 'Backend'],
     features: [

@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './Icons'
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
 
 const socials = [
-  { icon: Mail,         label: 'Email',    value: 'ajeetgupta@example.com',      href: 'mailto:ajeetgupta@example.com' },
-  { icon: GithubIcon,   label: 'GitHub',   value: 'github.com/ajeetgupta',        href: 'https://github.com/ajeetgupta' },
-  { icon: LinkedinIcon, label: 'LinkedIn', value: 'linkedin.com/in/ajeetgupta',   href: 'https://linkedin.com/in/ajeetgupta' },
+  { icon: Mail,          label: 'Email',     value: 'ajeetgupta80045@gmail.com',                                           href: 'mailto:ajeetgupta80045@gmail.com' },
+  { icon: GithubIcon,    label: 'GitHub',    value: 'github.com/gajit9147-dev',                                            href: 'https://github.com/gajit9147-dev' },
+  { icon: LinkedinIcon,  label: 'LinkedIn',  value: 'linkedin.com/in/ajeet-gupta-970478273',                               href: 'https://www.linkedin.com/in/ajeet-gupta-970478273/' },
+  { icon: InstagramIcon, label: 'Instagram', value: '@_ajeetgupta_07',                                                     href: 'https://www.instagram.com/_ajeetgupta_07?stkn=eTUxOXExeHh6dXMz&utm_source=qr' },
 ]
 
 const fadeIn = {

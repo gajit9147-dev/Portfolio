@@ -16,21 +16,21 @@ const repos = [
     description: 'Full-stack secure personal notes with JWT auth, Docker & AWS deployment.',
     language: 'JavaScript', langColor: '#f1e05a',
     stars: null, forks: null,
-    url: 'https://github.com/ajeetgupta',
+    url: 'https://github.com/gajit9147-dev',
   },
   {
     name: 'rest-api-backend',
     description: 'Modular Node.js REST API with JWT auth and role-based access control.',
     language: 'JavaScript', langColor: '#f1e05a',
     stars: null, forks: null,
-    url: 'https://github.com/ajeetgupta',
+    url: 'https://github.com/gajit9147-dev',
   },
   {
     name: 'cloud-deployment-setup',
     description: 'Docker + AWS EC2 + Nginx deployment config for Node.js applications.',
     language: 'Shell', langColor: '#89e051',
     stars: null, forks: null,
-    url: 'https://github.com/ajeetgupta',
+    url: 'https://github.com/gajit9147-dev',
   },
 ]
 
@@ -89,7 +89,7 @@ export default function GitHub() {
             <div className="text-xs mt-0.5" style={{ color: 'var(--text-5)' }}>Full-Stack Developer · Node.js · React · Docker · AWS</div>
           </div>
           <a
-            href="https://github.com/ajeetgupta" target="_blank" rel="noopener noreferrer"
+            href="https://github.com/gajit9147-dev" target="_blank" rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg transition-all duration-200"
             style={{ background: 'var(--bg-btn-ghost)', border: '1px solid var(--border)', color: 'var(--text-3)' }}
             onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-1)'; e.currentTarget.style.borderColor = 'var(--border-hover)' }}
@@ -109,7 +109,7 @@ export default function GitHub() {
             <GitCommit size={13} style={{ color: 'var(--accent)' }} />
             <span>
               GitHub contribution graph connects here once API integration is added.{' '}
-              <a href="https://github.com/ajeetgupta" target="_blank" rel="noopener noreferrer"
+              <a href="https://github.com/gajit9147-dev" target="_blank" rel="noopener noreferrer"
                 style={{ color: 'var(--accent)' }}
                 onMouseEnter={e => e.currentTarget.style.textDecoration = 'underline'}
                 onMouseLeave={e => e.currentTarget.style.textDecoration = 'none'}

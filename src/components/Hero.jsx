@@ -4,7 +4,7 @@ import {
   ArrowUpRight,
   Mail,
 } from 'lucide-react'
-import { GithubIcon, LinkedinIcon } from './Icons'
+import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
 
 const fadeUp = {
   hidden: {
@@ -498,92 +498,54 @@ export default function Hero() {
               mt-7
             "
           >
-
             <a
-              href="https://github.com/"
+              href="https://github.com/gajit9147-dev"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="
-                w-8
-                h-8
-                rounded-[9px]
-                flex
-                items-center
-                justify-center
-                transition-all
-                duration-200
-              "
-              style={{
-                color:
-                  'var(--text-5)',
-
-                background:
-                  'var(--bg-subtle)',
-
-                border:
-                  '1px solid var(--border-subtle)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color =
-                  'var(--text-1)'
-
-                e.currentTarget.style.borderColor =
-                  'var(--border-hover)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color =
-                  'var(--text-5)'
-
-                e.currentTarget.style.borderColor =
-                  'var(--border-subtle)'
-              }}
+              className="w-8 h-8 rounded-[9px] flex items-center justify-center transition-all duration-200"
+              style={{ color: 'var(--text-5)', background: 'var(--bg-subtle)', border: '1px solid var(--border-subtle)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-1)'; e.currentTarget.style.borderColor = 'var(--border-hover)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
             >
               <GithubIcon size={14} />
             </a>
 
-
             <a
-              href="https://www.linkedin.com/"
+              href="https://www.linkedin.com/in/ajeet-gupta-970478273/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="
-                w-8
-                h-8
-                rounded-[9px]
-                flex
-                items-center
-                justify-center
-                transition-all
-                duration-200
-              "
-              style={{
-                color:
-                  'var(--text-5)',
-
-                background:
-                  'var(--bg-subtle)',
-
-                border:
-                  '1px solid var(--border-subtle)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color =
-                  'var(--text-1)'
-
-                e.currentTarget.style.borderColor =
-                  'var(--border-hover)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color =
-                  'var(--text-5)'
-
-                e.currentTarget.style.borderColor =
-                  'var(--border-subtle)'
-              }}
+              className="w-8 h-8 rounded-[9px] flex items-center justify-center transition-all duration-200"
+              style={{ color: 'var(--text-5)', background: 'var(--bg-subtle)', border: '1px solid var(--border-subtle)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-1)'; e.currentTarget.style.borderColor = 'var(--border-hover)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
             >
               <LinkedinIcon size={14} />
+            </a>
+
+            <a
+              href="https://www.instagram.com/_ajeetgupta_07?stkn=eTUxOXExeHh6dXMz&utm_source=qr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-8 h-8 rounded-[9px] flex items-center justify-center transition-all duration-200"
+              style={{ color: 'var(--text-5)', background: 'var(--bg-subtle)', border: '1px solid var(--border-subtle)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-1)'; e.currentTarget.style.borderColor = 'var(--border-hover)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+            >
+              <InstagramIcon size={14} />
+            </a>
+
+            <a
+              href="mailto:ajeetgupta80045@gmail.com"
+              aria-label="Email"
+              className="w-8 h-8 rounded-[9px] flex items-center justify-center transition-all duration-200"
+              style={{ color: 'var(--text-5)', background: 'var(--bg-subtle)', border: '1px solid var(--border-subtle)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--text-1)'; e.currentTarget.style.borderColor = 'var(--border-hover)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+            >
+              <Mail size={14} />
             </a>
           </motion.div>
 
