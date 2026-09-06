@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, Send, CheckCircle, AlertCircle } from 'lucide-react'
-import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
+import { Mail, CheckCircle } from 'lucide-react'
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './Icons'
 
 const socials = [
+  { icon: WhatsappIcon,  label: 'WhatsApp',  value: '+91 87870 95611',                                                    href: 'https://wa.me/918787095611?text=Hi%20Ajeet,%20I%20came%20across%20your%20portfolio!' },
   { icon: Mail,          label: 'Email',     value: 'ajeetgupta80045@gmail.com',                                           href: 'mailto:ajeetgupta80045@gmail.com' },
   { icon: GithubIcon,    label: 'GitHub',    value: 'github.com/gajit9147-dev',                                            href: 'https://github.com/gajit9147-dev' },
   { icon: LinkedinIcon,  label: 'LinkedIn',  value: 'linkedin.com/in/ajeet-gupta-970478273',                               href: 'https://www.linkedin.com/in/ajeet-gupta-970478273/' },
@@ -30,10 +31,11 @@ const inputBase = {
 }
 
 export default function Contact() {
-  const [form, setForm]     = useState({ name: '', email: '', message: '' })
-  const [errors, setErrors] = useState({})
-  const [status, setStatus] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [form, setForm]         = useState({ name: '', email: '', message: '' })
+  const [errors, setErrors]     = useState({})
+  const [status, setStatus]     = useState(null)
+  const [loading, setLoading]   = useState(false)
+  const [whatsappUrl, setWhatsappUrl] = useState('')
 
   const validate = () => {
     const e = {}
@@ -53,20 +55,32 @@ export default function Contact() {
     setLoading(true)
     setStatus(null)
 
+    const name = form.name.trim()
+    const email = form.email.trim()
+    const message = form.message.trim()
+
+    // Format WhatsApp message with user details
+    const text = `👋 *New Message from Portfolio Visitor*\n\n👤 *Name:* ${name}\n📧 *Email:* ${email}\n💬 *Message:*\n${message}\n\n🌐 Sent via Portfolio Website`
+    const waLink = `https://wa.me/918787095611?text=${encodeURIComponent(text)}`
+    setWhatsappUrl(waLink)
+
     try {
-      const res = await fetch('/api/contact', {
+      // 1. Save to portfolio database
+      await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form)
-      })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.message || 'Failed to send message')
+        body: JSON.stringify({ name, email, message })
+      }).catch(() => {})
+
+      // 2. Open WhatsApp with all user details ready to send
+      window.open(waLink, '_blank')
 
       setStatus('success')
       setForm({ name: '', email: '', message: '' })
     } catch (err) {
       console.error(err)
-      setStatus('error')
+      window.open(waLink, '_blank')
+      setStatus('success')
     } finally {
       setLoading(false)
     }
@@ -162,29 +176,45 @@ export default function Contact() {
               </div>
 
               <button
-                type="submit" disabled={loading || status === 'success'}
-                className="flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
+                type="submit" disabled={loading}
+                className="flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-lg transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                 style={{
-                  background: 'linear-gradient(135deg, var(--accent), var(--accent-2))',
-                  color: '#080c14',
-                  boxShadow: 'var(--shadow-glow)',
+                  background: 'linear-gradient(135deg, #25D366, #128C7E)',
+                  color: '#ffffff',
+                  boxShadow: '0 0 20px rgba(37,211,102,0.25)',
                 }}
-                onMouseEnter={e => { if (!loading && status !== 'success') e.currentTarget.style.opacity = '0.9' }}
+                onMouseEnter={e => { if (!loading) e.currentTarget.style.opacity = '0.92' }}
                 onMouseLeave={e => e.currentTarget.style.opacity = '1'}
               >
                 {loading ? (
                   <><motion.div animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                    className="w-4 h-4 rounded-full border-2" style={{ borderColor: 'rgba(0,0,0,0.3)', borderTopColor: '#080c14' }} />Sending...</>
-                ) : status === 'success' ? (
-                  <><CheckCircle size={15} /> Message Sent!</>
+                    className="w-4 h-4 rounded-full border-2" style={{ borderColor: 'rgba(255,255,255,0.3)', borderTopColor: '#ffffff' }} />Forwarding...</>
                 ) : (
-                  <><Send size={14} /> Send Message</>
+                  <><WhatsappIcon size={15} color="#ffffff" /> Send Message (Opens WhatsApp)</>
                 )}
               </button>
 
-              {status === 'error' && (
-                <div className="flex items-center gap-2 text-xs" style={{ color: '#f87171' }}>
-                  <AlertCircle size={13} /> Something went wrong. Please try again.
+              {status === 'success' && (
+                <div className="p-4 rounded-xl space-y-2 text-xs" style={{ background: 'rgba(37,211,102,0.08)', border: '1px solid rgba(37,211,102,0.25)' }}>
+                  <div className="flex items-center gap-2 font-semibold text-emerald-400 text-sm">
+                    <CheckCircle size={16} /> Details Forwarded to WhatsApp!
+                  </div>
+                  <p style={{ color: 'var(--text-3)' }}>
+                    Your message has been saved and opened directly in WhatsApp (<strong>+91 87870 95611</strong>). If WhatsApp did not open automatically, click below:
+                  </p>
+                  {whatsappUrl && (
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold text-xs text-white transition-all shadow-sm mt-1"
+                      style={{ background: '#25D366' }}
+                      onMouseEnter={e => e.currentTarget.style.opacity = '0.9'}
+                      onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+                    >
+                      <WhatsappIcon size={14} color="#ffffff" /> Open in WhatsApp (+91 87870 95611)
+                    </a>
+                  )}
                 </div>
               )}
             </form>

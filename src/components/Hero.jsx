@@ -4,7 +4,7 @@ import {
   ArrowUpRight,
   Mail,
 } from 'lucide-react'
-import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './Icons'
 
 const fadeUp = {
   hidden: {
@@ -535,6 +535,19 @@ export default function Hero() {
               onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
             >
               <InstagramIcon size={14} />
+            </a>
+
+            <a
+              href="https://wa.me/918787095611?text=Hi%20Ajeet,%20I%20came%20across%20your%20portfolio!"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="w-8 h-8 rounded-[9px] flex items-center justify-center transition-all duration-200"
+              style={{ color: 'var(--text-5)', background: 'var(--bg-subtle)', border: '1px solid var(--border-subtle)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = '#25D366'; e.currentTarget.style.borderColor = 'rgba(37,211,102,0.4)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--text-5)'; e.currentTarget.style.borderColor = 'var(--border-subtle)' }}
+            >
+              <WhatsappIcon size={14} />
             </a>
 
             <a

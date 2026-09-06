@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Mail, Code2 } from 'lucide-react'
-import { GithubIcon, LinkedinIcon, InstagramIcon } from './Icons'
+import { GithubIcon, LinkedinIcon, InstagramIcon, WhatsappIcon } from './Icons'
 
 const navLinks = [
   { label: 'Home',       href: '#home' },
@@ -14,6 +14,7 @@ const navLinks = [
 ]
 
 const socials = [
+  { icon: WhatsappIcon,  href: 'https://wa.me/918787095611?text=Hi%20Ajeet,%20I%20came%20across%20your%20portfolio!', label: 'WhatsApp' },
   { icon: GithubIcon,    href: 'https://github.com/gajit9147-dev',                                                     label: 'GitHub' },
   { icon: LinkedinIcon,  href: 'https://www.linkedin.com/in/ajeet-gupta-970478273/',                                   label: 'LinkedIn' },
   { icon: InstagramIcon, href: 'https://www.instagram.com/_ajeetgupta_07?stkn=eTUxOXExeHh6dXMz&utm_source=qr',       label: 'Instagram' },
