@@ -19,7 +19,6 @@ export default function Navbar({ theme, toggleTheme }) {
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [resumeUrl, setResumeUrl] = useState('/resume.pdf')
 
   const [avatarPhoto, setAvatarPhoto] = useState(() => localStorage.getItem('user_avatar') || '')
   const [isAvatarModalOpen, setIsAvatarModalOpen] = useState(false)
@@ -31,19 +30,10 @@ export default function Navbar({ theme, toggleTheme }) {
   const clickScrollTimerRef = useRef(null)
 
   /* ============================================
-     FETCH DYNAMIC RESUME PATH & AVATAR
+     FETCH DYNAMIC AVATAR
   ============================================ */
 
   useEffect(() => {
-    fetch('/api/uploads/resume-path')
-      .then((res) => res.json())
-      .then((data) => {
-        if (data?.path) {
-          setResumeUrl(data.path)
-        }
-      })
-      .catch(() => { })
-
     fetch('/api/uploads/avatar')
       .then((res) => res.json())
       .then((data) => {
@@ -680,9 +670,12 @@ export default function Navbar({ theme, toggleTheme }) {
             {/* Resume */}
 
             <a
-              href={resumeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/resume"
+              onClick={(e) => {
+                e.preventDefault()
+                window.history.pushState({}, '', '/resume')
+                window.dispatchEvent(new PopStateEvent('popstate'))
+              }}
               className="
                 flex
                 items-center
@@ -1195,9 +1188,13 @@ export default function Navbar({ theme, toggleTheme }) {
                 {/* Resume */}
 
                 <a
-                  href={resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/resume"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setMobileOpen(false)
+                    window.history.pushState({}, '', '/resume')
+                    window.dispatchEvent(new PopStateEvent('popstate'))
+                  }}
                   className="
                     flex
                     items-center
@@ -1231,7 +1228,7 @@ export default function Navbar({ theme, toggleTheme }) {
                     strokeWidth={2}
                   />
 
-                  Download Resume
+                  Resume & Builder Studio
                 </a>
               </div>
             </motion.div>

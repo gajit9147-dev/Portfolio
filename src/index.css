@@ -294,3 +294,34 @@
   }
 }
 
+/* Print optimizations for Resume Hub */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  header, nav, footer, .navbar {
+    display: none !important;
+  }
+
+  #resume-printable-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    color: #0f172a !important;
+  }
+
+  @page {
+    margin: 12mm 15mm;
+    size: auto;
+  }
+}
+

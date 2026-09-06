@@ -15,6 +15,7 @@ import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 
 const AdminDashboard = lazy(() => import('./components/AdminDashboard'))
+const ResumeHub = lazy(() => import('./components/ResumeHub'))
 
 export default function App() {
   const [theme, setTheme] = useState(() => {
@@ -23,6 +24,7 @@ export default function App() {
   })
 
   const [isAdminView, setIsAdminView] = useState(() => window.location.pathname === '/admin')
+  const [isResumeView, setIsResumeView] = useState(() => window.location.pathname === '/resume')
 
   // Stamp data-theme on <html> and persist preference whenever theme changes
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function App() {
   useEffect(() => {
     const handleLocationChange = () => {
       setIsAdminView(window.location.pathname === '/admin')
+      setIsResumeView(window.location.pathname === '/resume')
     }
     window.addEventListener('popstate', handleLocationChange)
     return () => window.removeEventListener('popstate', handleLocationChange)
@@ -53,6 +56,25 @@ export default function App() {
             onBack={() => {
               window.history.pushState({}, '', '/')
               setIsAdminView(false)
+            }}
+          />
+        </Suspense>
+      </div>
+    )
+  }
+
+  if (isResumeView) {
+    return (
+      <div className="min-h-screen" style={{ background: 'var(--bg-page)', color: 'var(--text-1)' }}>
+        <Suspense fallback={
+          <div className="min-h-screen flex items-center justify-center text-sm font-medium" style={{ color: 'var(--text-4)' }}>
+            Loading Resume Studio...
+          </div>
+        }>
+          <ResumeHub
+            onBack={() => {
+              window.history.pushState({}, '', '/')
+              setIsResumeView(false)
             }}
           />
         </Suspense>
