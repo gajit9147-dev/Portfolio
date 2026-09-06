@@ -58,6 +58,7 @@ export default function Navbar({ theme, toggleTheme }) {
     if (!file) return
 
     setAvatarUploading(true)
+    setAvatarAlert('')
     const formData = new FormData()
     formData.append('avatar', file)
 
@@ -66,8 +67,10 @@ export default function Navbar({ theme, toggleTheme }) {
         method: 'POST',
         body: formData,
       })
-      if (!res.ok) throw new Error('Upload failed')
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        throw new Error(data.message || 'Upload failed')
+      }
       setAvatarPhoto(data.avatar)
       setTempAvatarUrl(data.avatar)
       localStorage.setItem('user_avatar', data.avatar)
@@ -79,9 +82,10 @@ export default function Navbar({ theme, toggleTheme }) {
       }, 1500)
     } catch (err) {
       console.error(err)
-      setAvatarAlert('Upload error. Please try again.')
+      setAvatarAlert(err.message || 'Upload error. Please try again.')
     } finally {
       setAvatarUploading(false)
+      if (e.target) e.target.value = ''
     }
   }
 

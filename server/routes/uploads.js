@@ -30,8 +30,8 @@ const storage = multer.diskStorage({
   }
 })
 
-const ALLOWED_IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif'])
-const ALLOWED_MEDIA_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.mp4', '.webm', '.mov'])
+const ALLOWED_IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.jfif', '.avif'])
+const ALLOWED_MEDIA_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.svg', '.gif', '.jfif', '.avif', '.mp4', '.webm', '.mov'])
 
 const upload = multer({
   storage,
@@ -125,6 +125,7 @@ router.get('/avatar', async (req, res) => {
 router.post('/avatar', async (req, res) => {
   try {
     const { avatar } = req.body
+    await dbRun('CREATE TABLE IF NOT EXISTS config (key TEXT PRIMARY KEY, value TEXT NOT NULL)')
     await dbRun('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)', ['avatar_url', avatar || ''])
     res.json({ message: 'Avatar updated successfully', avatar: avatar || null })
   } catch (err) {
@@ -134,18 +135,24 @@ router.post('/avatar', async (req, res) => {
 })
 
 // Upload avatar file directly
-router.post('/avatar-upload', upload.single('avatar'), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'No file uploaded' })
-  }
-  const fileUrl = `/uploads/${req.file.filename}`
-  try {
-    await dbRun('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)', ['avatar_url', fileUrl])
-    res.json({ message: 'Avatar uploaded and saved successfully', avatar: fileUrl })
-  } catch (err) {
-    console.error('Save avatar error:', err)
-    res.status(500).json({ message: 'Error updating avatar in database' })
-  }
+router.post('/avatar-upload', (req, res) => {
+  upload.single('avatar')(req, res, async (err) => {
+    if (err) {
+      return res.status(400).json({ message: err.message || 'File upload error' })
+    }
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' })
+    }
+    const fileUrl = `/uploads/${req.file.filename}`
+    try {
+      await dbRun('CREATE TABLE IF NOT EXISTS config (key TEXT PRIMARY KEY, value TEXT NOT NULL)')
+      await dbRun('INSERT OR REPLACE INTO config (key, value) VALUES (?, ?)', ['avatar_url', fileUrl])
+      res.json({ message: 'Avatar uploaded and saved successfully', avatar: fileUrl })
+    } catch (dbErr) {
+      console.error('Save avatar error:', dbErr)
+      res.status(500).json({ message: 'Error updating avatar in database' })
+    }
+  })
 })
 
 export default router
