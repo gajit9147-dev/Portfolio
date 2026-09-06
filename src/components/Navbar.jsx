@@ -9,8 +9,8 @@ const navLinks = [
   { label: 'Education', href: '#education' },
   { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
-  { label: 'Contact', href: '#contact' },
   { label: 'Blog', href: '#blog' },
+  { label: 'Contact', href: '#contact' },
   { label: 'Moments', href: '#moments' },
   { label: 'Friends', href: '#friends' },
 ]
@@ -27,6 +27,8 @@ export default function Navbar({ theme, toggleTheme }) {
   const [avatarUploading, setAvatarUploading] = useState(false)
   const [avatarAlert, setAvatarAlert] = useState('')
   const avatarFileInputRef = useRef(null)
+  const isClickScrollingRef = useRef(false)
+  const clickScrollTimerRef = useRef(null)
 
   /* ============================================
      FETCH DYNAMIC RESUME PATH & AVATAR
@@ -119,22 +121,24 @@ export default function Navbar({ theme, toggleTheme }) {
     const onScroll = () => {
       setIsScrolled(window.scrollY > 20)
 
-      const sections = navLinks.map(
-        (link) => link.href.slice(1)
-      )
+      // When smooth-scrolling due to a direct click, don't overwrite the activeSection
+      if (isClickScrollingRef.current) return
+
+      // Map sections in real DOM top-to-bottom order
+      const sectionElements = navLinks
+        .map((link) => {
+          const id = link.href.slice(1)
+          const el = document.getElementById(id)
+          return { id, top: el ? el.offsetTop : 0 }
+        })
+        .filter((item) => item.id === 'home' || item.top > 0)
+        .sort((a, b) => a.top - b.top)
 
       let currentSection = 'home'
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const element = document.getElementById(
-          sections[i]
-        )
-
-        if (
-          element &&
-          window.scrollY >= element.offsetTop - 130
-        ) {
-          currentSection = sections[i]
+      for (let i = sectionElements.length - 1; i >= 0; i--) {
+        if (window.scrollY >= sectionElements[i].top - 140) {
+          currentSection = sectionElements[i].id
           break
         }
       }
@@ -142,19 +146,12 @@ export default function Navbar({ theme, toggleTheme }) {
       setActiveSection(currentSection)
     }
 
-    window.addEventListener(
-      'scroll',
-      onScroll,
-      { passive: true }
-    )
-
+    window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
 
     return () => {
-      window.removeEventListener(
-        'scroll',
-        onScroll
-      )
+      window.removeEventListener('scroll', onScroll)
+      if (clickScrollTimerRef.current) clearTimeout(clickScrollTimerRef.current)
     }
   }, [])
 
@@ -173,35 +170,38 @@ export default function Navbar({ theme, toggleTheme }) {
     }
 
     if (mobileOpen) {
-      document.addEventListener(
-        'mousedown',
-        onOutside
-      )
+      document.addEventListener('mousedown', onOutside)
     }
 
     return () => {
-      document.removeEventListener(
-        'mousedown',
-        onOutside
-      )
+      document.removeEventListener('mousedown', onOutside)
     }
   }, [mobileOpen])
 
   /* ============================================
-     SMOOTH SCROLL
+     SMOOTH SCROLL WITH NAVBAR OFFSET
   ============================================ */
 
   const scrollTo = (href) => {
     setMobileOpen(false)
+    const id = href.slice(1)
+    setActiveSection(id)
 
-    const element = document.getElementById(
-      href.slice(1)
-    )
+    isClickScrollingRef.current = true
+    if (clickScrollTimerRef.current) clearTimeout(clickScrollTimerRef.current)
+    clickScrollTimerRef.current = setTimeout(() => {
+      isClickScrollingRef.current = false
+    }, 850)
 
+    const element = document.getElementById(id)
     if (element) {
-      element.scrollIntoView({
+      const navOffset = 76
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - navOffset
+
+      window.scrollTo({
+        top: offsetPosition,
         behavior: 'smooth',
-        block: 'start',
       })
     }
   }

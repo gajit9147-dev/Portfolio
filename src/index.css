@@ -134,6 +134,10 @@
     overflow-x: hidden;
   }
 
+  section {
+    scroll-margin-top: 80px;
+  }
+
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-page);
